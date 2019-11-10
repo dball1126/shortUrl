@@ -13,22 +13,24 @@ class ShortUrlsController < ApplicationController
   end
 
   def create
-    @shorturl = ShortUrl.new(short_url_params)
-    if (!@shorturl.save)
-      render json @short_url.errors.full_messages, status: 422
+    @short_url = ShortUrl.create(short_url_params)
+    
+    if (!@short_url.save)
+      render json: @short_url.errors.full_messages, status: 422
     else 
-      render :show
+      render json: @short_url
     end
   end
 
   def show
     @short_url = ShortUrl.find(params[:id])
-    render json: @short_url
+    
+    redirect_to @short_url.full_url
   end
 
   private
   def short_url_params
-    params.require(:short_url).permit(:full_url)
+    params.permit(:full_url, :short_code, :title)
   end
 
 end
