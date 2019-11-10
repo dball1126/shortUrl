@@ -14,7 +14,6 @@ class ShortUrl < ApplicationRecord
   private
 
   def validate_full_url
-
-    return self.full_url.include?("http:") || self.full_url.include?("https:")
+     self.full_url.include?("http:") || self.full_url.include?("https:")
   end
 end

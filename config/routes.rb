@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   require 'resque/server'
   mount Resque::Server, at: '/admin/jobs'
 
-  resources :short_urls, only: [:index, :create, :show]
+  resources :short_urls, only: [:index, :create, :show], defaults: {format: :json}
 end

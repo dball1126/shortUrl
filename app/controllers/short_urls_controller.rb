@@ -9,13 +9,21 @@ class ShortUrlsController < ApplicationController
 
   def index
     @short_urls = ShortUrl.all
+    render json: @short_urls
   end
 
   def create
+    @shorturl = ShortUrl.new(short_url_params)
+    if (!@shorturl.save)
+      render json @short_url.errors.full_messages, status: 422
+    else 
+      render :show
+    end
   end
 
   def show
     @short_url = ShortUrl.find(params[:id])
+    render json: @short_url
   end
 
   private
